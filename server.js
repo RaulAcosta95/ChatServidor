@@ -1,45 +1,30 @@
-//Trae el paquete de express (Como importar)
 const express = require ('express');
-//Define el router
 const router = express.Router();
-//Inicializa express
 var app = express();
-//Añade el uso de Json
-app.use(express.json());
-//Añade el uso de nose
-app.use(express.urlencoded({extended : false}));
-//Responde a las peticiones a través de response.js
+    app.use(express.json());
+    app.use(express.urlencoded({extended : false}));
 const response = require('./network/response.js')
-//Permite a Express responder con Archivos Estáticos
-//ARCHIVOS FRONT END en public
-app.use('/app', express.static('public')); 
-//Añade el router a la aplicación (Debe ir a lo último)
-app.use(router);
+    //Permite a Express responder con Archivos Estáticos
+    app.use('/app', express.static('public')); 
+    //Añade el router a la aplicación (Debe ir a lo último)
+    app.use(router);
+    router.get('/', function (req,res) {
+      if (req.query.error=="ok") {
+        response.error(req,res,'Mensaje Error del Front, no puede acceder al SERVIDOR',404, 'Error Simulado (mensaje de details)')
+      } else {
+        response.success(req,res, 'Accedió al SERVIDOR')
+      }
+    });
 
-
-//Controla las respuestas para cada método y cada ruta
-router.get('/index', function (req,res) { 
-    console.log(req.headers);
-    
-    //Validación en la respuesta
-    if (req.query.error=="ok") {//En caso que encuentre que el error es... ok...???
-      response.error(req,res,'Un Error Simulado', 400);
-    } else {//En caso que no haya error ok..??? que forma tan rara de hacer validación es esta
-      response.success(req,res,'Todo bien',200);
-    }
-  });
-
-router.post('/index', function (req,res) {
-    console.log(req.headers);
-    response.success(req,res,'Se creó un recurso en el post')
-
-  //Validación en la respuesta
-  if (req.query.error=="ok") {//En caso que encuentre que el error es... ok...???
-    response.error(req,res,'Error en el post', 400);
-  } else {//En caso que no haya error ok..??? que forma tan rara de hacer validación es esta
-    response.success(req,res,'Todo bien',200);
-  }
-});
+    //El get de la app entra directamente al index, por lo tanto no manda mensaje
+    router.get('/app', function (req,res) {
+      if (req.query.error=="ok") {
+        response.error(req,res,'Mensaje Error del Front, no puede acceder a la página web',404,'Error Simulado en la app (mensaje del details)')
+      } else {
+        console.log('Un usuario accedió a la página web');
+        response.success(req,res, 'Accedió a la página web',201)
+      }
+    });
 
 //Asigna un puerto para Express, 3000 es el más usado
 app.listen(3000);
