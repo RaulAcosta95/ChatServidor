@@ -6,13 +6,17 @@ const router = express.Router();//AQUÍ SE CREA EL ROUTER
 
     //Get de mensajes
     router.get('/', function (req,res) {
-        controller.getMessages()
-        .then((messageList)=>{
-            response.success(req,res,messageList,200);
-        })
-        .catch(error => {
-            response.error(req,res,'Error Inesperado',500, error);
-        })
+        //Obtén el Query para obtener mensajes de x usuario
+        const filterMessages = req.query.user || null;
+        //Al getMessages le pasamos el filtro del query
+        //Recuerda que controller es lo que exporta el archivo controller.js
+        controller.getMessages( filterMessages)
+            .then((messageList)=>{
+                response.success(req,res,messageList,200);
+            })
+            .catch(error => {
+                response.error(req,res,'Error Inesperado',500, error);
+            });
     });
 
     //post de mensajes

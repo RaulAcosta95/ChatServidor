@@ -23,9 +23,11 @@ function addMessage(user,message) {
 }
 
 //Obten una lista de mensajes desde el store
-function getMessages() {
+        //Ahora filtrará los msg por usuario (si le llega el parámetro)
+function getMessages(filterUser) {
     return new Promise((resolve,reject) => {
-        resolve(store.list());
+        //store.list es lo que exporta store.js, pero la función se llama getMessages en store.js
+        resolve(store.list(filterUser));
     });
 }
 

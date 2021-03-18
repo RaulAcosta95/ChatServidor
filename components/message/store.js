@@ -27,9 +27,15 @@ function addMessage(message) {
 
 //Vuelve la función de obtener mensajes como asincrona, de esa manera
 //no habrá problema si no consigue correctamente la lista
-async function getMessages() {
+async function getMessages(filterUser) {
+    let filter = {};
+    //Identifica si hay filtro de usuario
+    if (filterUser !== null) {
+        //Solo trae los usuarios que user = filterUser
+        filter = { user: filterUser };
+    }
     //Pide todo el modelo (los datos tipo json) de la base de datos
-    const messages = await Model.find();  
+    const messages = await Model.find(filter);  
     return messages;  
 }
 
