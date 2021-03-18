@@ -33,11 +33,26 @@ async function getMessages() {
     return messages;  
 }
 
+//Edita un mensaje en la BD
+async function updateText(id, body) {
+    //Encuentra el mensaje con el id
+    const foundMessage = await Model.findOne({
+        _id: id
+    });
+    //Modifica el message del mensaje encontrado (message es un parámetro)
+    foundMessage.message = body;
+    //Guarda en la DB, y esa instrucción la guarda en una variable
+    const newMessage = await foundMessage.save();
+    //Lo guardó en la variable para poder retornarlo
+    return newMessage;
+}
+
 module.exports = {
     add: addMessage,
-    list: getMessages
+    list: getMessages,
     //Funciones a futuro...
     //get para obtener un mensaje
     //update para editar un mensaje
+    updateText: updateText
     //delete para eliminar un mensaje
 }

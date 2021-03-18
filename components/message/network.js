@@ -15,7 +15,7 @@ const router = express.Router();//AQUÍ SE CREA EL ROUTER
         })
     });
 
-  //post de mensajes
+    //post de mensajes
     router.post('/', function (req,res) {
         //Usa la función del controller
         // controller.addMessage(req.body.user,req.body.message);
@@ -28,5 +28,22 @@ const router = express.Router();//AQUÍ SE CREA EL ROUTER
             }); 
     });
 
+    //parch de mensajes (actualiza)
+    //da un id para saber a cual mensaje hacer patch
+    router.patch('/:id', function (req,res) {
+        //obtén el id
+        // console.log(req.params.id);
+        //Una función de controller que vamos a crear, será con promesa
+        controller.updateMessage(req.params.id, req.body.message) //Recibe el id y el parametro message
+                    .then((data)=>{
+                        //El resultado de la promesa es regresar la data
+                        response.success(req,res,data,200);
+                    })
+                    .catch(error =>{
+                        response.error(req,res,'Error interno',500,error);
+                    });
+
+        // res.send('Todo bien con el id:' + req.params.id)
+    });
 //Permite exportar el router hacia donde se necesite TN8bUAh505RoiGAK
 module.exports = router;
