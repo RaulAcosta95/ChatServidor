@@ -42,6 +42,7 @@ function getMessages(filterUser) {
         }
         //usa una función de store que actualice un mensaje
         // result es la lista de mensajes en orden gracias a await
+        //Recuerda que store es de store.js, así que la función  updateText está en el archivo
         const result = await store.updateText(id,body);
         //Resuelve la promesa con result
         resolve(result);

@@ -41,7 +41,7 @@ async function getMessages(filterUser) {
 
 //Edita un mensaje en la BD
 async function updateText(id, body) {
-    //Encuentra el mensaje con el id
+    //Encuentra el mensaje con el id en la base de datos MongoDb Atlas
     const foundMessage = await Model.findOne({
         _id: id
     });

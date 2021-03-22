@@ -19,3 +19,4 @@ var app = express();
 //Mensaje para la consola al ejecutar correctamente
 console.log(`La aplicación se escucha en el http://localhost:3000`);
 //Ahora Ejecuta en la consola de visual estudio "node server.js (el archivo)"
+//Ahora Ejecuta en la consola de visual estudio "nodemon server.js (el archivo)"
