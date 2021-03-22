@@ -22,4 +22,5 @@ const mySchema = new Schema({
 //Manda el schema a la base de datos
 //Este es el modelo(Colección) de Message
 const model = mongoose.model('Messages',mySchema);
+//El modelo lo usa store.js
 module.exports = model;

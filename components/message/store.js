@@ -28,6 +28,7 @@ function addMessage(message) {
 //Vuelve la función de obtener mensajes como asincrona, de esa manera
 //no habrá problema si no consigue correctamente la lista
 async function getMessages(filterUser) {
+    //Si no se le pasa el filterUser, entonces es una cadena sin filtros
     let filter = {};
     //Identifica si hay filtro de usuario
     if (filterUser !== null) {
@@ -53,12 +54,22 @@ async function updateText(id, body) {
     return newMessage;
 }
 
+//Esta función de removeMessage se exporta como "remove", que es como lo usa controller.js
+function removeMessage(id) {
+    //Esta es una función de la base de datos... en este archivo están esas funciones
+    return Model.deleteOne({
+        _id: id
+    });
+}
+
+//Los usa controller.js
 module.exports = {
     add: addMessage,
     list: getMessages,
     //Funciones a futuro...
     //get para obtener un mensaje
     //update para editar un mensaje
-    updateText: updateText
+    updateText: updateText,
     //delete para eliminar un mensaje
+    remove: removeMessage
 }

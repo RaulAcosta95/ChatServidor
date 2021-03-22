@@ -10,7 +10,7 @@ const router = express.Router();//AQUÍ SE CREA EL ROUTER
         const filterMessages = req.query.user || null;
         //Al getMessages le pasamos el filtro del query
         //Recuerda que controller es lo que exporta el archivo controller.js
-        controller.getMessages( filterMessages)
+        controller.getMessages(filterMessages)
             .then((messageList)=>{
                 response.success(req,res,messageList,200);
             })
@@ -49,5 +49,16 @@ const router = express.Router();//AQUÍ SE CREA EL ROUTER
 
         // res.send('Todo bien con el id:' + req.params.id)
     });
-//Permite exportar el router hacia donde se necesite TN8bUAh505RoiGAK
+
+    //Elimina un mensaje por id, o por usuario??
+    router.delete('/:id', function (req,res) {
+        controller.deleteMessage(req.params.id)
+            .then(()=>{
+                response.success(req,res, `Mensaje con el id ${req.params.id} eliminado`,200)
+            })
+            .catch(error =>{
+                response.error(req,res, 'Error interno', 500, error);
+            });
+      });
+//Permite exportar el router hacia routes.js
 module.exports = router;

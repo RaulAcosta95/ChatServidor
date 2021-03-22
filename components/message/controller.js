@@ -48,8 +48,28 @@ function getMessages(filterUser) {
         resolve(result);
     });//Fin de promesa
 }
+
+//Para eliminar mensajes con el id
+function deleteMessage(id) {
+    return new Promise((resolve, reject)=>{
+        if (!id) {//Por si no viene el id
+            reject(`Id no reconocido`);
+            return false;
+        }
+        store.remove(id)//función en el Store
+            .then(()=>{
+                resolve();
+            })
+            .catch(error=>{
+                reject(error);
+            });
+    });
+}
+
+//Los usa el archivo network.js
 module.exports={
     addMessage,
     getMessages,
-    updateMessage
+    updateMessage,
+    deleteMessage
 }
