@@ -11,17 +11,29 @@ function addMessage(message) {
 
 //Vuelve la función de obtener mensajes como asincrona, de esa manera
 //no habrá problema si no consigue correctamente la lista
-async function getMessages(filterUser) {
-    //Si no se le pasa el filterUser, entonces es una cadena sin filtros
-    let filter = {};
-    //Identifica si hay filtro de usuario
-    if (filterUser !== null) {
-        //Solo trae los usuarios que user = filterUser
-        filter = { user: filterUser };
-    }
-    //Pide todo el modelo (los datos tipo json) de la base de datos
-    const messages = await Model.find(filter);  
-    return messages;  
+function getMessages(filterUser) {
+    //Populate desde la clase 26
+    return new Promise ((resolve,reject)=>{
+        //Si no se le pasa el filterUser, entonces es una cadena sin filtros
+        let filter = {};
+        //Identifica si hay filtro de usuario
+        if (filterUser !== null) {
+            //Solo trae los usuarios que user = filterUser
+            filter = { user: filterUser };
+        }
+        //Pide todo el modelo (los datos tipo json) de la base de datos
+        Model.find(filter)
+                //popula el campo user de mensaje
+                .populate('user') //El populate no se ejecuta automáticamente
+                .exec((error, populated)=>{
+                    if(error){
+                        reject(error);
+                        return false;
+                    }
+                    resolve(populated); //resuelve la promesa con el populated en lugar de resolve(messages); 
+                });
+    });
+
 }
 
 //Edita un mensaje en la BD

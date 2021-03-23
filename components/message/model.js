@@ -5,9 +5,10 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const mySchema = new Schema({
+    //Ahora user va a ser el componente user y no solo un nombre
     user: {
-        type: String,
-        required: true
+        type: Schema.ObjectId,//Ahora recibe un id de la bd
+        ref: 'User' //Le dice de cuál modelo es el Id
     },
     message: {
         type: String,
