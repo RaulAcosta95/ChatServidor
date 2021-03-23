@@ -1,4 +1,8 @@
 const express = require ('express');
+
+//Ahora conecta con la BD a través de aquí y el archivo db.js
+const db = require('./db');
+db('mongodb+srv://db_user_raulacosta:ACZdd3N8X4@node1chat.ut3ep.mongodb.net/Telegrom');
 //Ahora obtén el router de /network/routes.js
 const router = require('./network/routes')//RECIBE LAS RUTAS EXISTENTES DE ROUTES.JS
  

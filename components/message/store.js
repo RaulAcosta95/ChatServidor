@@ -1,21 +1,5 @@
-//Trae mongoose 
-const db = require('mongoose');
 //Trae el modelo
 const Model = require('./model');
-//Usa las promesas globales
-db.Promise = global.Promise;
-
-//Conecta con la base de datos en la nube 
-//Aquí podria ir un try catch...
-db.connect(         //usuario creado en https://cloud.mongodb.com/v2/60524d7d8413225466480184#clusters
-                    //usuario : contraseña del usuario@cluster..../colección
-     'mongodb+srv://db_user_raulacosta:ACZdd3N8X4@node1chat.ut3ep.mongodb.net/Telegrom',
-    {   //Unas instrucciónes que permiten mayor compatibilidad
-        useNewUrlParser:true,
-        useUnifiedTopology: true
-    }
-);
-console.log(`[DB] Conectada con éxito`);
 
 function addMessage(message) {
     //Crea un nuevo modelo con la información del mensaje que mandemos.
