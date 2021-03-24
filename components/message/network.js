@@ -7,7 +7,9 @@ const router = express.Router();//AQUÍ SE CREA EL ROUTER
     //Get de mensajes
     router.get('/', function (req,res) {
         //Obtén el Query para obtener mensajes de x usuario
-        const filterMessages = req.query.user || null;
+                            //Ahora en lugar del usuario, pide el chat
+                            //const filterMessages = req.query.user || null;
+        const filterMessages = req.query.chat || null;
         //Al getMessages le pasamos el filtro del query
         //Recuerda que controller es lo que exporta el archivo controller.js
         controller.getMessages(filterMessages)
@@ -23,7 +25,8 @@ const router = express.Router();//AQUÍ SE CREA EL ROUTER
     router.post('/', function (req,res) {
         //Usa la función del controller
         // controller.addMessage(req.body.user,req.body.message);
-        controller.addMessage(req.body.user,req.body.message)
+                            //Ahora pide el chat
+        controller.addMessage(req.body.chat,req.body.user,req.body.message)
             .then((fullMessage)=>{
                 response.success(req,res, fullMessage,201)
             })

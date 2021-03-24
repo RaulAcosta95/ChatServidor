@@ -5,6 +5,11 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const mySchema = new Schema({
+    //Ahora añadimos la entidad (componente) de chat
+    chat:{
+        type: Schema.ObjectId,
+        ref: 'Chat'
+    },
     //Ahora user va a ser el componente user y no solo un nombre
     user: {
         type: Schema.ObjectId,//Ahora recibe un id de la bd

@@ -11,15 +11,15 @@ function addMessage(message) {
 
 //Vuelve la función de obtener mensajes como asincrona, de esa manera
 //no habrá problema si no consigue correctamente la lista
-function getMessages(filterUser) {
+function getMessages(filterChat) {
     //Populate desde la clase 26
     return new Promise ((resolve,reject)=>{
         //Si no se le pasa el filterUser, entonces es una cadena sin filtros
         let filter = {};
         //Identifica si hay filtro de usuario
-        if (filterUser !== null) {
-            //Solo trae los usuarios que user = filterUser
-            filter = { user: filterUser };
+        if (filterChat !== null) {
+            //Solo trae los chats que chat = filterChat
+            filter = { chat: filterChat };
         }
         //Pide todo el modelo (los datos tipo json) de la base de datos
         Model.find(filter)

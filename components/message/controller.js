@@ -1,21 +1,22 @@
 const store = require('./store');
 
 //Añade un mensaje a la base de datos tipo json
-function addMessage(user,message) {
+function addMessage(chat, user,message) {
     return new Promise((resolve,reject)=>{
-        if (!user || !message) {
-            console.error('[/Message/Controller] No hay usuario o mensaje correcto');
+        if (!chat || !user || !message) {
+            console.error('[/Message/Controller] No hay usuario, chat o mensaje correcto');
             return reject('Los datos son incorrectos')
         }
         const fullMessage={
-            user:user,
+            chat: chat,
+            user: user,
             message: message,
             date: new Date()
-        }
+        };
         //Luego borrar estos log que no son necesarios en consola
-        console.log(`[${fullMessage.date}] ${fullMessage.user}: `);
-        console.log(`${fullMessage.message}`);
-        //De la store
+        // console.log(`[${fullMessage.date}] ${fullMessage.user}: `);
+        // console.log(`${fullMessage.message}`);
+        //Añade un mensaje en el chat
         store.add(fullMessage);
         resolve(fullMessage);
     })
@@ -23,11 +24,11 @@ function addMessage(user,message) {
 }
 
 //Obten una lista de mensajes desde el store
-        //Ahora filtrará los msg por usuario (si le llega el parámetro)
-function getMessages(filterUser) {
+        //Ahora filtrará los msg por chat (si le llega el parámetro)
+function getMessages(filterChat) {
     return new Promise((resolve,reject) => {
         //store.list es lo que exporta store.js, pero la función se llama getMessages en store.js
-        resolve(store.list(filterUser));
+        resolve(store.list(filterChat));
     });
 }
 
