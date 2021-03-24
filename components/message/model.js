@@ -8,17 +8,22 @@ const mySchema = new Schema({
     //Ahora añadimos la entidad (componente) de chat
     chat:{
         type: Schema.ObjectId,
-        ref: 'Chat'
+        ref: 'Chat',
+        required: true
     },
     //Ahora user va a ser el componente user y no solo un nombre
     user: {
         type: Schema.ObjectId,//Ahora recibe un id de la bd
-        ref: 'User' //Le dice de cuál modelo es el Id
+        ref: 'User', //Le dice de cuál modelo es el Id
+        required: true
     },
     message: {
         type: String,
         required: true
     },
+    file: {
+        type: String//El file puede venir o no venir, no usa required: true
+    }, 
     date: {
         type: Date,
         required: true

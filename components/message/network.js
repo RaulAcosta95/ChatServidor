@@ -1,8 +1,24 @@
 //Este archivo es unicamente para el modulo de message
 const express = require ('express');
+//Para poder usar Archivos usamos multer npm i multer clase 27
+//Para que los archivos no sean binarios, obtenemos la extención con path
+const path = require("path");
+const multer = require('multer');
+
 const response = require('../../network/response');
 const controller = require('./controller');
 const router = express.Router();//AQUÍ SE CREA EL ROUTER
+
+//Controla el destino de los archivos en el servidor
+//storage = multer.diskStorage es algo que saqué de la clase
+const storage = multer.diskStorage({
+    destination : "public/files/",
+    filename : function (req, file, cb) {
+        cb(null, file.fieldname + "-" + Date.now() + 
+        path.extname(file.originalname)); //Obtén el nombre original y lo utiliza en lugar de volverlo binario
+    }
+});
+const upload = multer({ storage: storage }); //Si queremos encriptar a binario, solo cambiar por multer({dest: 'uploads/',});
 
     //Get de mensajes
     router.get('/', function (req,res) {
@@ -22,11 +38,13 @@ const router = express.Router();//AQUÍ SE CREA EL ROUTER
     });
 
     //post de mensajes
-    router.post('/', function (req,res) {
+    //upload es el midleware por el que pasa el archivo antes de entrar a la función
+    router.post('/',upload.single('file'), function (req,res) {
+        // console.log(req.file);//Muchos parametros del fichero
         //Usa la función del controller
         // controller.addMessage(req.body.user,req.body.message);
-                            //Ahora pide el chat
-        controller.addMessage(req.body.chat,req.body.user,req.body.message)
+                            //Ahora pide el chat y un file
+        controller.addMessage(req.body.chat,req.body.user,req.body.message, req.file)
             .then((fullMessage)=>{
                 response.success(req,res, fullMessage,201)
             })

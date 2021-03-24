@@ -1,16 +1,24 @@
 const store = require('./store');
 
 //Añade un mensaje a la base de datos tipo json
-function addMessage(chat, user,message) {
+                                        //Ahora recibe un file (antes solo lo guardaba)
+function addMessage(chat, user, message, file) {
     return new Promise((resolve,reject)=>{
         if (!chat || !user || !message) {
             console.error('[/Message/Controller] No hay usuario, chat o mensaje correcto');
             return reject('Los datos son incorrectos')
         }
+
+        //Crea un url para el file que mande
+        let fileUrl = '';
+        if (file) {
+            fileUrl = 'http://localhost:3000/app/files/' + file.filename;
+        }
         const fullMessage={
             chat: chat,
             user: user,
             message: message,
+            file: fileUrl,//Si hay un file, lo guarda en el url
             date: new Date()
         };
         //Luego borrar estos log que no son necesarios en consola
