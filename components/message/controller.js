@@ -1,4 +1,7 @@
 const store = require('./store');
+// const { socket } = require('../../socket'); //En que momento traje esto???
+//Trae el socket del archivo socket... es el objeto
+const socket = require ('../../socket').socket;
 
 //Añade un mensaje a la base de datos tipo json
                                         //Ahora recibe un file (antes solo lo guardaba)
@@ -26,6 +29,10 @@ function addMessage(chat, user, message, file) {
         // console.log(`${fullMessage.message}`);
         //Añade un mensaje en el chat
         store.add(fullMessage);
+        
+        //Emite el mensaje a través del socket, ahora en lugar de envíar un mensaje, envía "el mensaje"
+        socket.io.emit('message', fullMessage)
+
         resolve(fullMessage);
     })
 

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi chat con sockets</title>
+    <!-- Se conecta con el servidor de sockets -->
+    <!-- Aún no se porqué es esta ruta... -->
+    <script src="/socket.io/socket.io.js"></script>
+        <!-- Bootstrap y estilos porque soy mamador-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+        <link rel="stylesheet" href="./css/estilos1.css">
+</head>
+<body>
+    <header>
+        <header>
+            <div class="container">
+                <div class="row">
+                    <div class="col text-center">
+                        <h1>Mira la consola</h1>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col text-center">
+                        <p>Todo lo que suceda, sucederá en la consola, por ahora...</p>
+                    </div>
+                </div>
+            </div>
+        </header>
+    </header>
+
+    <section class="wrapper">
+        <section class="main">
+            <div class="container">
+                <div class="row">
+                    <div class="col text-center">
+                        <h2>Chat Online</h2>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <article>
+            <div class="container">
+                <div class="row">
+                    <div class="col" id="Mensajes_Aqui">
+                        
+                    </div>
+                </div>
+            </div>
+        </article>
+    </section>
+
+    <!-- Conecta al servidor con este Script que bien podría estar en otro archivo /js/script1.js -->
+    <script>
+        var socket = io.connect('http://localhost:3000',{
+            forceNew:true //Hace que las conexiones siempre sean nuevas
+        });
+
+        //Saber que le llegan mensajes, recibe lo que le damos en el modulo de mensajes, cada que mande un mensaje aquí lo recibe
+        socket.on('message', function (data) {  
+            console.log(data);
+            //AQUI ES ALGO MÍO RAÚL ACOSTA
+            var mensajes_Impresos = document.getElementById('Mensajes_Aqui');
+            mensajes_Impresos.innerHTML = data;
+        });
+
+        
+    </script>
+
+    <footer>
+        <!-- Mi footer, Raúl Acosta -->
+        <!-- https://twitter.com/raul_acosta95 -->
+            <div class="container-fluid">
+                <div class="row ">
+                    <div class="col-6 col-md-2 mt-3 ">
+                        <p class="floatleft align-self-center text-center " > <b>Raul Acosta 2021 </b> </p> 
+                    </div>
+                    <div class="col-1 ">
+                        <a target="_blank" href="https://twitter.com/raul_acosta95" class=""><img src="Imagenes/Twitter.png" height="20"></a>
+                    </div>
+                </div>
+            </div>
+    </footer>
+</body>
+</html>

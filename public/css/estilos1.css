@@ -1,3 +1,29 @@
 body{
     background-color: rgb(149, 195, 235);
 }
+
+/* Estilos propios fijos Raúl Acosta */
+/* https://twitter.com/raul_acosta95 */
+/* Mi FOOTER */
+footer{
+    background-color: rgb(4, 2, 17);
+    color: white;
+    bottom: 0;
+    position: fixed;
+    width: 100%;
+}
+footer img{
+	margin-left: 30px;
+	margin-top: 15px;
+}
+/* /MI FOOTER */
+
+/* Clases opcionales */
+.floatleft{
+    float: left;
+}
+.borderojo{
+    border-style: solid;
+    border-color: red;
+}
+/* /Clases opcionales */
