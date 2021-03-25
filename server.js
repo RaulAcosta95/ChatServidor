@@ -3,6 +3,11 @@ const app = express();
 //Ahora trae el servidor http como en el servidor de WebSocket
 const server = require('http').Server(app);
 
+//Ahora trae el cors que permite restringir el acceso a usuarios por nivel
+//habilita la cabecera allow-cross origin, recuerda npm i cors
+const cors = require('cors');
+
+
 //Ahora conecta con la BD a través de aquí y el archivo db.js
 const db = require('./db');
 db('mongodb+srv://db_user_raulacosta:ACZdd3N8X4@node1chat.ut3ep.mongodb.net/Telegrom');
@@ -12,6 +17,8 @@ const router = require('./network/routes')//RECIBE LAS RUTAS EXISTENTES DE ROUTE
 //Ahora trae el objeto socket de socket.js para poder usar socket.io (de la función connect)
 const socket = require ('./socket');
 
+//permite a la app usar el cors, y lo ejecuta a su vez
+app.use(cors());
 //Permite usar objetos tipo json
 app.use(express.json());
 app.use(express.urlencoded({extended : false}));
