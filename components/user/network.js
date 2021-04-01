@@ -27,5 +27,30 @@ router.post('/', function (req,res) {
             response.error(req,res, 'Error interno', 500, error);
         });
 });
+router.delete('/:id', function (req,res) {  
+    //No olvidar que si usamos req.body.name es porque en el Json de la petición post le estamos pasando un parámetro llamado name
+    controller.deleteUser(req.params.id)
+    .then(()=>{
+        response.success(req,res, `Usuario con el id ${req.params.id} eliminado`,200)
+    })
+    .catch(error =>{
+        response.error(req,res, 'Error interno', 500, error);
+    });
+});
 
+router.patch('/:id', function (req,res) {
+    //obtén el id
+    // console.log(req.params.id);
+    //Una función de controller que vamos a crear, será con promesa
+    controller.updateUser(req.params.id, req.body.name) //Recibe el id y el parametro message
+                .then((data)=>{
+                    //El resultado de la promesa es regresar la data
+                    response.success(req,res,data,200);
+                })
+                .catch(error =>{
+                    response.error(req,res,'Error interno',500,error);
+                });
+
+    // res.send('Todo bien con el id:' + req.params.id)
+});
 module.exports = router;

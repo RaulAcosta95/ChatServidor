@@ -48,18 +48,19 @@ function getMessages(filterChat) {
 }
 
 //Edita el mensaje con el id dado, y pone el nuevo body
- function updateMessage(id, body) {
+ function updateMessage(id, message) {
+    console.log('id: ' + id +"| message: " + message);
      //La vuelve async y permite que los mensajes salgan en orden
     return new Promise(async(resolve,reject)=>{
         //Validación
-        if (!id || !body) {
+        if (!id || !message) {
             reject('Datos invalidos');
             return false;
         }
         //usa una función de store que actualice un mensaje
         // result es la lista de mensajes en orden gracias a await
         //Recuerda que store es de store.js, así que la función  updateText está en el archivo
-        const result = await store.updateText(id,body);
+        const result = await store.updateText(id,message);
         //Resuelve la promesa con result
         resolve(result);
     });//Fin de promesa
